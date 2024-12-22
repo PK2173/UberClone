@@ -22,10 +22,10 @@ const captainSchema = new mongoose.Schema({
         match: [/^[a-zA-Z0-9._%+-]+@[a-zA-Z0 -9.-]+\.[a-zA-Z]{2,}$/,'Please fill a valid email address']
     },
     password:{
-        type:String,
-        required:true,
-        minlength: [6,'Password must be at least 6 characters'],
-        select:false
+        type: String,
+        required: true,
+        // minlength: [6,'Password must be at least 6 characters'],
+        // select: false,
     },
     socketId:{
         type:String,
@@ -66,12 +66,12 @@ const captainSchema = new mongoose.Schema({
     }
 })
 
-captainSchema.methods.generateAuthTiken = function () {
+captainSchema.methods.generateAuthToken = function () {
     const token = jwt.sign({_id:this._id},process.env.JWT_SECRET,{expiresIn:'24h'})
     return token;
 }
 
-captainSchema.methods.comparePassword = async function (password){
+captainSchema.methods.comparePassword = async function (password){   
     return await bcrypt.compare(password,this.password);
 }
 
