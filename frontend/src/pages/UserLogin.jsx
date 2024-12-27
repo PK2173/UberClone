@@ -21,7 +21,7 @@ const UserLogin = () => {
         <input value={email} onChange={(e)=>setemail(e.target.value)} className='bg-[#eeeeee] mb-7 rounded px-4 py-2 border w-full text-lg placeholder:text-base' type="email" name="email" placeholder="Enter your email" required/>
         <h3 className='text-lg font-medium mb-2'>What's your password</h3>
         <input value={password} onChange={(e)=>setpassword(e.target.value)} className='bg-[#eeeeee] mb-7 rounded px-4 py-2 border w-full text-lg placeholder:text-base' type="password" placeholder='Enter Your Password' required />
-        <Link to='/signup' className='flex items-center justify-center  bg-[#111] text-white font-semibold mb-3 rounded px-4 py-2 border w-full text-lg placeholder:text-base'>Login</Link>
+        <button to='/signup' type='submit' className='flex items-center justify-center  bg-[#111] text-white font-semibold mb-3 rounded px-4 py-2 border w-full text-lg placeholder:text-base'>Login</button>
         <p className='text-center'>New Here ? <Link to='/signup' className='text-blue-600' >Create new Accout</Link></p>
       </form>
       </div>
