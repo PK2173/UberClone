@@ -1,17 +1,38 @@
 import React, { useState } from 'react'
 import uberLogo from '../assets/Uber_logo_2018.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { UserDataContext } from '../context/UserContext';
+import axios from 'axios';
 
 
 const UserLogin = () => {
-  const [email, setemail] = useState('')
+  const [email, setemail] = useState('')  
   const [password, setpassword] = useState('')
-  const submitHandler = (e)=>{
+  const {users, setUsers} = React.useContext(UserDataContext)
+  const navigate = useNavigate();
+
+  const submitHandler = async (e)=>{
     e.preventDefault();
-    console.log(email, password)
+    const userData = {email, password}
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/login`, userData);
+    if(response.status === 200){
+      const data = response.data
+      setUsers(data.user)
+      localStorage.setItem('token', data.token)
+      navigate('/home')
+    }
+    // const existingUser = users.find((user) => user.email === email && user.password === password)
+    // if(existingUser){
+    //   alert('Login Successfull')
+    //   navigate('/userdashboard')
+    // }
+    // else{
+    //   alert('Invalid Email or Password')
+    // }
     setemail('')
     setpassword('')
   }
+  
   return (
     <div className='p-7 h-screen flex flex-col justify-between'>
       <div>
