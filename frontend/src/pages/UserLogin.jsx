@@ -21,14 +21,6 @@ const UserLogin = () => {
       localStorage.setItem('token', data.token)
       navigate('/home')
     }
-    // const existingUser = users.find((user) => user.email === email && user.password === password)
-    // if(existingUser){
-    //   alert('Login Successfull')
-    //   navigate('/userdashboard')
-    // }
-    // else{
-    //   alert('Invalid Email or Password')
-    // }
     setemail('')
     setpassword('')
   }

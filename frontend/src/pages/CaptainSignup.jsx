@@ -5,15 +5,15 @@ import { CapatainDataContext } from '../context/CapatainContext';
 import axios from 'axios';
 
 const CaptainSignup = () => {
-  const {capatain, setcaptaindata} = React.useContext(CapatainDataContext)
+  const {capatain, setCapatain} = React.useContext(CapatainDataContext)
   const [Captaindata, setCaptaindata] = useState({});
   const navigate = useNavigate()
       const submitHandler = async (e)=>{
         e.preventDefault();
         const captainData = {
-          fullName:{
-            firstName: Captaindata.firstName || '',
-            lastName: Captaindata.lastName || '',
+          fullname:{
+            firstname: Captaindata.firstName || '',
+            lastname: Captaindata.lastName || '',
           },
           email: Captaindata.email || '',
           password: Captaindata.password || '',
@@ -21,19 +21,20 @@ const CaptainSignup = () => {
             color: Captaindata.VehicleColor || '',
             plate: Captaindata.VehiclePlate || '',
             capacity: Captaindata.VehicleCapacity || '',
-            type: Captaindata.VehicleType || ''
+            vehicleType: Captaindata.VehicleType || 'car'
           }
         }
-        const response = await axios.post(`${import.meta.env}/captains/register`, captainData);
-        console.log(response);
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/register`, captainData);
         
         if(response.status === 201){
           const data = response.data;
-          setcaptaindata(data.captain)
+          setCapatain(data.newCaptain)
           localStorage.setItem('token',data.token)
           navigate('/captain-home')
+        }else{
+          alert('try again')
         }
-        // setCaptaindata({}) // setCaptaindata({ firstName: '',  lastName: '',  email: '',  password: ''})
+        setCaptaindata({}) // setCaptaindata({ firstName: '',  lastName: '',  email: '',  password: ''})
       }
   return (
     <div className='p-7 h-screen flex flex-col justify-between'>
@@ -62,10 +63,10 @@ const CaptainSignup = () => {
         <div className='flex '>
         <input value={Captaindata.VehicleCapacity} onChange={(e)=>setCaptaindata({...Captaindata,VehicleCapacity:e.target.value})} className='bg-[#eeeeee] w-1/2 mb-7 rounded px-4 py-2 border m-1 text-lg placeholder:text-base' type="number" name="VehicleCapacity" placeholder="Vehicle Capacity" required/>
         {/* <input value={Captaindata.VehiclePlate} onChange={(e)=>setCaptaindata({...Captaindata,VehiclePlate:e.target.value})} className='bg-[#eeeeee] w-1/2 mb-7 rounded px-4 py-2 border m-1 text-lg placeholder:text-base' type="text" name="VehiclePlate" placeholder="Vehicle Plate" required/> */}
-        <select value={Captaindata.VehicleType} onChange={(e)=>setCaptaindata({...Captaindata,VehicleType:e.target.value})} className='bg-[#eeeeee] w-1/2 mb-7 rounded px-4 py-2 border m-1 text-lg placeholder:text-base' name="VehicleType" >
+        <select id="VehicleType" value={Captaindata.VehicleType} onChange={(e)=>setCaptaindata({...Captaindata,VehicleType:e.target.value})} className='bg-[#eeeeee] w-1/2 mb-7 rounded px-4 py-2 border m-1 text-lg placeholder:text-base' name="VehicleType" >
           <option value="car">Car</option>
           <option value="auto">Auto</option>
-          <option value="bike">Bike</option>
+          <option value="motorcycle">Bike</option>
         </select>
         </div>
 

@@ -4,7 +4,7 @@ import React, { createContext, useState } from 'react';
 export const UserDataContext = createContext();
 
 const UserContext = ({ children }) => {
-// State to store user data
+// State to store user data 
   const [users, setUsers] = useState({});
 
   return (
