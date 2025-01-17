@@ -26,10 +26,12 @@ const CaptainProtectWrapper = ({ children }) => {
             setisLoading(false)
         }
     }).catch(err =>{
-        console.log(err)
+        const data = err.response.data || '';
+        alert(data.message || 'try again'); 
         localStorage.removeItem('token')
         navigate('/captain-login')
     })
+    
     if(isLoading){
         return <div>Loading...</div>
     }

@@ -14,15 +14,21 @@ const UserLogin = () => {
   const submitHandler = async (e)=>{
     e.preventDefault();
     const userData = {email, password}
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/user/login`, userData);
-    if(response.status === 200){
-      const data = response.data
-      setUsers(data.user)
-      localStorage.setItem('token', data.token)
-      navigate('/home')
-    }
-    setemail('')
-    setpassword('')
+    axios.post(`${import.meta.env.VITE_BASE_URL}/user/login`, userData).then((response)=>{
+      if(response.status === 200){
+        const data = response.data
+        setUsers(data.user)
+        localStorage.setItem('token', data.token)
+        navigate('/home')
+        setemail('')
+        setpassword('')
+      }
+    }).catch((err)=>{
+      const data = err.response.data || '';
+      alert(data.error || 'try again'); 
+      setemail('')
+      setpassword('')
+    });
   }
   
   return (
