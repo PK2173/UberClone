@@ -12,16 +12,23 @@ const CaptainLogin = () => {
 
   const submitHandler = async (e)=>{
     e.preventDefault();
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/login`, {email,password});
+    axios.post(`${import.meta.env.VITE_BASE_URL}/captains/login`, {email,password}).then((response)=>{
+      if(response.status === 200){
+        const data = response.data
+        setCapatain(data.captain)
+        localStorage.setItem('token', data.token)
+        navigate('/captain-home')
+        setemail('')
+        setpassword('')
+      }
+    }).catch((err)=>{
+      console.log(err);
+      const data = err.response.data || '';
+      alert(data.error || data.message || 'try again'); 
+      setemail('')
+      setpassword('')
+    });
     
-    if(response.status == 200){
-      const data = response.data;
-      setCapatain(data.captain)
-      localStorage.setItem('token',data.token)
-      navigate('/captain-home')
-    }
-    setemail('')
-    setpassword('')
   }
   return (
     <div className='p-7 h-screen flex flex-col justify-between'>

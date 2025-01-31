@@ -132,12 +132,11 @@ const Home = () => {
       <div ref={vehicleFoundRef} className='fixed w-full z-10 bottom-0 px-3 py-6 pt-12 translate-y-full bg-white'>
         <LookingForDriver setvehiclePanel={setvehiclePanel} setpanelOpen={setpanelOpen} setvehicleFound={setvehicleFound}/>
       </div>
-      <div ref={waitingForDriverRef} className='fixed w-full z-10 bottom-0 px-3 py-6 pt-12 bg-white'>
+      <div ref={waitingForDriverRef} className='fixed w-full z-10 bottom-0 translate-y-full px-3 py-6 pt-12 bg-white'>
         <WaitingForDriver setvehiclePanel={setvehiclePanel} setpanelOpen={setpanelOpen} setvehicleFound={setvehicleFound} setwaitingForDriver={setwaitingForDriver}/>
       </div>
     </div>
   )
 }
-
 
 export default Home
